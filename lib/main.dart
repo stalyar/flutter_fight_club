@@ -136,7 +136,7 @@ class MyHomePageState extends State<MyHomePage> {
   void _onGoButtonClicked() {
     if (enemiesLives == 0 || yourLives == 0) {
       setState(() {
-        historyText = "";
+        //historyText = "";
         enemiesLives = maxLives;
         yourLives = maxLives;
       });
@@ -195,7 +195,7 @@ class MyHomePageState extends State<MyHomePage> {
       }
       return "$firstString\n$secondString";
     }
-    return "ERROR";
+    return "";
   }
 }
 
