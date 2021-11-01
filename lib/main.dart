@@ -79,7 +79,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            ControlWidget(
+            ControlsWidget(
               defendingBodyPart: defendingBodyPart,
               selectDefendingBodyPart: _selectDefendingBodyPart,
               attackingBodyPart: attackingBodyPart,
@@ -293,13 +293,13 @@ class FightersInfo extends StatelessWidget {
   }
 }
 
-class ControlWidget extends StatelessWidget {
+class ControlsWidget extends StatelessWidget {
   final BodyPart? defendingBodyPart;
   final ValueSetter<BodyPart> selectDefendingBodyPart;
   final BodyPart? attackingBodyPart;
   final ValueSetter<BodyPart> selectAttackingBodyPart;
 
-  const ControlWidget({
+  const ControlsWidget({
     Key? key,
     required this.defendingBodyPart,
     required this.selectDefendingBodyPart,
