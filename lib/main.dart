@@ -43,11 +43,11 @@ class MyHomePageState extends State<MyHomePage> {
   BodyPart whatEnemyAttacks = BodyPart.random();
 
   int yourLives = maxLives;
-  int enemiesLives = maxLives;
+  int enemysLives = maxLives;
 
   Color buttonGoColor = FightClubColors.greyButton;
 
-  String historyText = "";
+  String centerText = "";
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class MyHomePageState extends State<MyHomePage> {
             FightersInfo(
               maxLivesCount: maxLives,
               yourLivesCount: yourLives,
-              enemiesLivesCount: enemiesLives,
+              enemiesLivesCount: enemysLives,
             ),
             Expanded(
               child: Padding(
@@ -70,7 +70,7 @@ class MyHomePageState extends State<MyHomePage> {
                     color: FightClubColors.darkPurple,
                     child: Center(
                       child: Text(
-                        historyText,
+                        centerText,
                         style: TextStyle(
                             color: FightClubColors.darkGreyText, fontSize: 10),
                       ),
@@ -90,7 +90,7 @@ class MyHomePageState extends State<MyHomePage> {
             ),
             GoButton(
               text:
-                  yourLives == 0 || enemiesLives == 0 ? "Start new game" : "Go",
+                  yourLives == 0 || enemysLives == 0 ? "Start new game" : "Go",
               onTap: _onGoButtonClicked,
               color: _getGoButtonColor(),
             ),
@@ -104,7 +104,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Color _getGoButtonColor() {
-    if (yourLives == 0 || enemiesLives == 0) {
+    if (yourLives == 0 || enemysLives == 0) {
       return FightClubColors.blackButton;
     } else if (attackingBodyPart == null || defendingBodyPart == null) {
       return FightClubColors.greyButton;
@@ -114,7 +114,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _selectDefendingBodyPart(final BodyPart value) {
-    if (enemiesLives == 0 || yourLives == 0) {
+    if (enemysLives == 0 || yourLives == 0) {
       return;
     }
 
@@ -124,7 +124,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _selectAttackingBodyPart(final BodyPart value) {
-    if (enemiesLives == 0 || yourLives == 0) {
+    if (enemysLives == 0 || yourLives == 0) {
       return;
     }
 
@@ -134,10 +134,10 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _onGoButtonClicked() {
-    if (enemiesLives == 0 || yourLives == 0) {
+    if (enemysLives == 0 || yourLives == 0) {
       setState(() {
-        //historyText = "";
-        enemiesLives = maxLives;
+        centerText = "";
+        enemysLives = maxLives;
         yourLives = maxLives;
       });
     } else if (defendingBodyPart != null && attackingBodyPart != null) {
@@ -146,14 +146,13 @@ class MyHomePageState extends State<MyHomePage> {
         final bool youLoseLife = defendingBodyPart != whatEnemyAttacks;
 
         if (enemyLoseLife) {
-          enemiesLives -= 1;
+          enemysLives -= 1;
         }
         if (youLoseLife) {
           yourLives -= 1;
         }
 
-        historyText = _formText(yourLives, enemiesLives, defendingBodyPart!,
-            attackingBodyPart!, whatEnemyDefends, whatEnemyAttacks);
+        centerText = _formText(yourLives, enemysLives, defendingBodyPart!, attackingBodyPart!, whatEnemyDefends, whatEnemyAttacks);
 
         whatEnemyAttacks = BodyPart.random();
         whatEnemyDefends = BodyPart.random();
