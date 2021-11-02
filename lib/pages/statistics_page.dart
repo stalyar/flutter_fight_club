@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fight_club/fight_result.dart';
 import 'package:flutter_fight_club/pages/fight_page.dart';
 import 'package:flutter_fight_club/resources/fight_club_colors.dart';
 import 'package:flutter_fight_club/widgets/action_button.dart';
@@ -10,83 +11,62 @@ class StatisticsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _StatisticsPageContent();
-  }
-}
-
-class _StatisticsPageContent extends StatelessWidget {
-  const _StatisticsPageContent({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: FightClubColors.background,
       body: SafeArea(
         child: Column(children: [
           Container(
             margin: EdgeInsets.only(top: 24, left: 16, right: 16),
+            alignment: Alignment.center,
             child: Text(
               "Statistics",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 24,
-                  color: FightClubColors.darkGreyText,
-                  fontWeight: FontWeight.w400),
+                fontSize: 24,
+                color: FightClubColors.darkGreyText,
+              ),
             ),
           ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FutureBuilder<int?>(
-                    future: SharedPreferences.getInstance().then((
-                        sharedPreferences) =>
-                        sharedPreferences.getInt("stats_won")),
-                    builder: (context, snapshot) {
-                      int wonCount = 0;
-                      if (snapshot.hasData && snapshot.data != null) {
-                        wonCount = snapshot.data!;
-                      }
-                      return Text("Won: $wonCount", style: TextStyle(
-                          fontSize: 16, color: FightClubColors.darkGreyText),);
-                    }
+          Expanded(child: const SizedBox.shrink()),
+          FutureBuilder<SharedPreferences>(
+            future: SharedPreferences.getInstance(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData || snapshot.data == null) {
+                return const SizedBox();
+              }
+              final SharedPreferences sp = snapshot.data!;
+              return Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(
+                  "Won: ${sp.getInt("stats_won") ?? 0}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: FightClubColors.darkGreyText,
+                  ),
                 ),
-                FutureBuilder<int?>(
-                    future: SharedPreferences.getInstance().then((
-                        sharedPreferences) =>
-                        sharedPreferences.getInt("stats_draw")),
-                    builder: (context, snapshot) {
-                      int drawCount = 0;
-                      if (snapshot.hasData && snapshot.data != null) {
-                        drawCount = snapshot.data!;
-                      }
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Text("Draw: $drawCount", style: TextStyle(
-                            fontSize: 16,
-                            color: FightClubColors.darkGreyText),),
-                      );
-                    }
+                const SizedBox(height: 6,),
+                Text(
+                  "Lost: ${sp.getInt("stats_lost") ?? 0}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: FightClubColors.darkGreyText,
+                  ),
                 ),
-                FutureBuilder<int?>(
-                    future: SharedPreferences.getInstance().then((
-                        sharedPreferences) =>
-                        sharedPreferences.getInt("stats_lost")),
-                    builder: (context, snapshot) {
-                      int lostCount = 0;
-                      if (snapshot.hasData && snapshot.data != null) {
-                        lostCount = snapshot.data!;
-                      }
-                      return Text("Lost: $lostCount", style: TextStyle(
-                          fontSize: 16, color: FightClubColors.darkGreyText),
-                      );
-                    }
+                const SizedBox(height: 6,),
+                Text(
+                  "Draw: ${sp.getInt("stats_draw") ?? 0}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: FightClubColors.darkGreyText,
+                  ),
                 ),
-              ],
-            ),
+              ]);
+            },
           ),
+          Expanded(child: const SizedBox.shrink()),
           Padding(
-            padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+            padding: const EdgeInsets.only(
+              bottom: 16,
+            ),
             child: SecondaryActionButton(
                 text: "Back",
                 onTap: () {
@@ -97,6 +77,4 @@ class _StatisticsPageContent extends StatelessWidget {
       ),
     );
   }
-
-
 }

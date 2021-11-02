@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fight_club/fight_result.dart';
 import 'package:flutter_fight_club/pages/fight_page.dart';
@@ -39,44 +40,25 @@ class _MainPageContent extends StatelessWidget {
           ),
           Expanded(child: SizedBox()),
           FutureBuilder<String?>(
-              future: SharedPreferences.getInstance().then(
-                  (sharedPreferences) =>
-                      sharedPreferences.getString("last_fight_result")),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData || snapshot.data == null) {
-                  return Expanded(child: SizedBox());
-                } else {
-                  late final FightResult fightResult;
-                  switch (snapshot.data){
-                    case "Draw":
-                      fightResult = FightResult.draw;
-                      break;
-                    case "Won":
-                      fightResult = FightResult.won;
-                      break;
-                    case "Lost":
-                      fightResult = FightResult.lost;
-                      break;
-                  }
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: Center(
-                          child: Text(
-                            "Last fight result",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: FightClubColors.darkGreyText,
-                            ),
-                          ),
-                        ),
-                      ),
-                      FightResultWidget(fightResult: fightResult)
-                    ],
-                  );
-                }
-              }),
+            future: SharedPreferences.getInstance().then((sharedPreferences) =>
+                sharedPreferences.getString("last_fight_result")),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData || snapshot.data == null) {
+                return const SizedBox();
+              }
+              final FightResult fightResult =
+                  FightResult.getByName(snapshot.data!);
+              return Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(
+                  "Last fight result",
+                  style: TextStyle(
+                      color: FightClubColors.darkGreyText, fontSize: 14),
+                ),
+                const SizedBox(height: 12,),
+                FightResultWidget(fightResult: fightResult)
+              ]);
+            },
+          ),
           Expanded(child: SizedBox()),
           SecondaryActionButton(
             text: "Statistics",
