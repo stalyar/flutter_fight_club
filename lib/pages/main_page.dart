@@ -44,14 +44,7 @@ class _MainPageContent extends StatelessWidget {
                       sharedPreferences.getString("last_fight_result")),
               builder: (context, snapshot) {
                 if (!snapshot.hasData || snapshot.data == null) {
-                  return Column(
-                    children: [
-                      Center(
-                        child: Text("no games"),
-                      ),
-                      FightResultWidget(fightResult: FightResult.draw)
-                    ],
-                  );
+                  return Expanded(child: SizedBox());
                 } else {
                   late final FightResult fightResult;
                   switch (snapshot.data){
