@@ -12,7 +12,6 @@ class StatisticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: FightClubColors.background,
       body: SafeArea(
         child: Column(children: [
           Container(
