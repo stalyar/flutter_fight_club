@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fight_club/fight_result.dart';
 import 'package:flutter_fight_club/pages/fight_page.dart';
