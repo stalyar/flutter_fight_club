@@ -16,7 +16,6 @@ class StatisticsPage extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "Statistics",
-              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
                 color: FightClubColors.darkGreyText,
@@ -31,31 +30,38 @@ class StatisticsPage extends StatelessWidget {
                 return const SizedBox();
               }
               final SharedPreferences sp = snapshot.data!;
-              return Column(mainAxisSize: MainAxisSize.min, children: [
-                Text(
-                  "Won: ${sp.getInt("stats_won") ?? 0}",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: FightClubColors.darkGreyText,
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Won: ${sp.getInt("stats_won") ?? 0}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: FightClubColors.darkGreyText,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6,),
-                Text(
-                  "Lost: ${sp.getInt("stats_lost") ?? 0}",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: FightClubColors.darkGreyText,
+                  const SizedBox(
+                    height: 6,
                   ),
-                ),
-                const SizedBox(height: 6,),
-                Text(
-                  "Draw: ${sp.getInt("stats_draw") ?? 0}",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: FightClubColors.darkGreyText,
+                  Text(
+                    "Lost: ${sp.getInt("stats_lost") ?? 0}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: FightClubColors.darkGreyText,
+                    ),
                   ),
-                ),
-              ]);
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  Text(
+                    "Draw: ${sp.getInt("stats_draw") ?? 0}",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: FightClubColors.darkGreyText,
+                    ),
+                  ),
+                ],
+              );
             },
           ),
           Expanded(child: const SizedBox.shrink()),
