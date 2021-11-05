@@ -44,7 +44,7 @@ class StatisticsPage extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    "Lost: ${sp.getInt("stats_lost") ?? 0}",
+                    "Draw: ${sp.getInt("stats_draw") ?? 0}",
                     style: TextStyle(
                       fontSize: 16,
                       color: FightClubColors.darkGreyText,
@@ -54,7 +54,7 @@ class StatisticsPage extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    "Draw: ${sp.getInt("stats_draw") ?? 0}",
+                    "Lost: ${sp.getInt("stats_lost") ?? 0}",
                     style: TextStyle(
                       fontSize: 16,
                       color: FightClubColors.darkGreyText,
